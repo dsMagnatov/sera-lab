@@ -666,10 +666,9 @@ button { color: inherit; }
 .lab-note {
   margin: 0;
   color: rgb(255 253 249 / 90%);
-  font-size: calc(14 * var(--lab-unit));
+  font-size: var(--section-copy-size);
   font-weight: 400;
-  line-height: 1.04;
-  letter-spacing: -0.015em;
+  line-height: var(--section-copy-leading);
   text-shadow: 0 1px 10px rgb(0 0 0 / 35%);
   outline: none;
   transition: color 180ms, text-shadow 180ms;

@@ -114,7 +114,6 @@
     margin-top: 24px;
   }
 
-  .lab-note { font-size: 13px; line-height: 1.48; }
   .lab-note-contact { grid-column: auto; text-align: left; }
 
   #loading.has-error { display: none; }
