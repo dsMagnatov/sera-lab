@@ -105,6 +105,10 @@ export class Bloodstream {
     this.resize();
     this.frameCount = 0;
     this.statsTime = performance.now();
+  }
+
+  start() {
+    this.animate(performance.now(), true);
     this.renderer.setAnimationLoop((now) => this.animate(now));
   }
 
@@ -460,10 +464,10 @@ export class Bloodstream {
     this.dustGeometry.attributes.position.needsUpdate = true;
   }
 
-  animate(now) {
+  animate(now, firstFrame = false) {
     const delta = Math.min((now - this.lastTime) / 1000, 0.05);
     this.lastTime = now;
-    if (document.hidden || !this.presentation.onScreen) return;
+    if (!firstFrame && (document.hidden || !this.presentation.onScreen)) return;
     const animationDelta = this.paused ? 0 : delta;
     this.time += animationDelta;
     this.updateMotion(animationDelta);

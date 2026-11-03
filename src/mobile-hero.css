@@ -117,7 +117,7 @@
   .lab-note { font-size: 13px; line-height: 1.48; }
   .lab-note-contact { grid-column: auto; text-align: left; }
 
-  #loading { display: none; }
+  #loading.has-error { display: none; }
 }
 
 @keyframes mobile-spectrum-scan {

@@ -45,13 +45,39 @@ function createPanel(studio, settings, migrate) {
 }
 
 async function start() {
+  const loading = document.querySelector('#loading');
+  const progress = loading?.querySelector('.scene-progress');
+  const progressValue = progress?.querySelector('.scene-progress-value');
+  function showProgress(percent) {
+    progress?.setAttribute('aria-valuenow', String(percent));
+    if (progressValue) progressValue.textContent = `${percent}%`;
+  }
+
+  // Allow the progress update to paint before synchronous WebGL work begins.
+  const afterPaint = () => new Promise((resolve) => {
+    requestAnimationFrame(() => requestAnimationFrame(resolve));
+  });
+
   try {
-    const [response] = await Promise.all([
-      fetch(`${import.meta.env.BASE_URL}bloodstream-settings.json`, { cache: 'no-store' }),
-      initializePhysics(),
+    let progressPercent = 10;
+    showProgress(progressPercent);
+    function completePreparationStage() {
+      progressPercent += 25;
+      showProgress(progressPercent);
+    }
+    const [projectSettings] = await Promise.all([
+      fetch(`${import.meta.env.BASE_URL}bloodstream-settings.json`, { cache: 'no-store' })
+        .then((response) => {
+          if (!response.ok) throw new Error('Could not load project settings');
+          return response.json();
+        })
+        .then((settings) => {
+          completePreparationStage();
+          return settings;
+        }),
+      initializePhysics().then(completePreparationStage),
     ]);
-    if (!response.ok) throw new Error('Could not load project settings');
-    const projectSettings = await response.json();
+    if (progress) await afterPaint();
     if (disposed) return;
     const settings = projectSettings ?? createSettings();
     const studio = document.querySelector('#studio');
@@ -60,16 +86,21 @@ async function start() {
     scene = new Bloodstream(document.querySelector('#scene'), settings, (fps) => panel?.updateStats(fps), notify);
     scene.setPaused(panel?.paused ?? false);
     scene.setPresentation(scrollTransition.state);
-    requestAnimationFrame(() => {
-      document.body.classList.add('is-scene-ready');
-      document.querySelector('#loading').classList.add('is-ready');
-      setTimeout(() => document.querySelector('#loading')?.remove(), 600);
-    });
+    showProgress(90);
+    if (progress) await afterPaint();
+    if (disposed) return;
+    scene.start();
+    showProgress(100);
+    document.body.classList.add('is-scene-ready');
+    loading?.classList.add('is-ready');
+    setTimeout(() => loading?.remove(), 600);
   } catch (error) {
+    if (disposed) return;
     console.error('Bloodstream could not initialize:', error);
-    const loading = document.querySelector('#loading');
-    loading.className = 'has-error';
-    loading.textContent = 'Не вдалося запустити 3D-сцену. Перезавантажте сторінку.';
+    if (loading) {
+      loading.className = 'has-error';
+      loading.textContent = 'Не вдалося запустити 3D-сцену. Перезавантажте сторінку.';
+    }
   }
 }
 void start();
