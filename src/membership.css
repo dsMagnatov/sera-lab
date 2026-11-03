@@ -1,0 +1,169 @@
+.clinic-membership {
+  --membership-kicker-gap: 22px;
+  padding-block: calc(var(--section-padding) - var(--section-label-size) - var(--membership-kicker-gap)) var(--section-padding);
+  background: var(--lab-muted-surface);
+  color: #25232a;
+  color-scheme: light;
+}
+
+.membership-intro {
+  width: var(--section-grid-width);
+  margin: 0 auto clamp(32px, 4vw, 60px);
+  text-align: center;
+}
+
+.membership-intro .clinic-kicker {
+  margin-bottom: var(--membership-kicker-gap);
+  line-height: 1;
+}
+
+.membership-intro h2 {
+  margin: 0;
+  font: 400 var(--section-heading-size)/var(--section-heading-leading) 'Instrument Serif', Georgia, serif;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.membership-lead {
+  max-width: 36rem;
+  margin: 18px auto 0;
+  color: #625b62;
+  font-size: var(--section-copy-size);
+  line-height: var(--section-copy-leading);
+  text-wrap: pretty;
+}
+
+.membership-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(clamp(16px, 2vw, 30px) * 0.7);
+  width: calc(var(--section-grid-width) * 0.7);
+  margin-inline: auto;
+}
+
+.membership-card {
+  --plan-border: #e7e0e2;
+  --plan-muted: #625b62;
+  --plan-accent: var(--lab-red);
+  --plan-button: #25232a;
+  --plan-button-text: #fff;
+  --plan-button-hover: #4a3c46;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 410px;
+  padding: clamp(24px, 3.25vw, 52px);
+  border: 1px solid var(--plan-border);
+  border-radius: 16px;
+  background: #fff;
+}
+
+.membership-card-featured {
+  --plan-border: rgb(255 255 255 / 22%);
+  --plan-muted: #fff;
+  --plan-accent: #fff;
+  --plan-button: #fff;
+  --plan-button-text: #25232a;
+  --plan-button-hover: #f8f6f6;
+  background: var(--lab-red);
+  background-image: radial-gradient(ellipse at 110% 110%, #ff91ac, transparent 68%);
+  color: #fff;
+}
+
+.membership-card h3 {
+  margin: 0;
+  font: 400 clamp(34px, 2.6vw, 52px)/var(--section-heading-leading) 'Instrument Serif', Georgia, serif;
+  letter-spacing: -0.025em;
+}
+
+.membership-card-footer {
+  margin-top: auto;
+}
+
+.membership-price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 0 0 16px;
+  font-size: var(--section-copy-size);
+  line-height: 1.15;
+}
+
+.membership-price strong {
+  font: 400 clamp(44px, 3vw, 64px)/1 'Instrument Serif', Georgia, serif;
+}
+
+.membership-price span { color: var(--plan-muted); }
+
+.membership-description {
+  max-width: 37ch;
+  margin: 14px 0 22px;
+  color: var(--plan-muted);
+  font-size: var(--section-copy-size);
+  line-height: var(--section-copy-leading);
+}
+
+.membership-includes {
+  display: grid;
+  gap: 10px;
+  align-self: stretch;
+  margin: 0 0 28px;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--plan-border);
+  list-style: none;
+  font-size: var(--section-copy-size);
+  line-height: var(--section-copy-leading);
+}
+
+.membership-includes li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.membership-includes li::before {
+  content: '';
+  flex: 0 0 9px;
+  height: 5px;
+  border-left: 1.5px solid var(--plan-accent);
+  border-bottom: 1.5px solid var(--plan-accent);
+  transform: translateY(-0.2em) rotate(-45deg);
+}
+
+.membership-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 45px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--plan-button);
+  color: var(--plan-button-text);
+  font-size: var(--section-button-size);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.membership-link:hover { background: var(--plan-button-hover); }
+.membership-link:focus-visible {
+  outline: 2px solid var(--plan-accent);
+  outline-offset: 4px;
+}
+
+@media (max-width: 767px) {
+  .clinic-membership { --membership-kicker-gap: 12px; }
+
+  .membership-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    width: var(--section-grid-width);
+  }
+
+  .membership-card {
+    min-height: auto;
+    padding: 24px;
+  }
+
+  .membership-card-footer,
+  .membership-link { width: 100%; }
+}

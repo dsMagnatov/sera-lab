@@ -1,0 +1,84 @@
+.clinic-faq {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(36px, 7vw, 120px);
+  align-items: start;
+  width: var(--section-grid-width);
+  margin-inline: auto;
+  padding-block: var(--section-padding);
+  color: #25232a;
+  color-scheme: light;
+}
+
+.faq-intro h2 {
+  max-width: 12ch;
+  margin: 0;
+  font: 400 var(--section-heading-size)/var(--section-heading-leading) 'Instrument Serif', Georgia, serif;
+  letter-spacing: -0.025em;
+}
+
+.faq-list {
+  border-top: 1px solid #eae8eb;
+}
+
+.faq-item {
+  border-bottom: 1px solid #eae8eb;
+}
+
+.faq-item summary {
+  position: relative;
+  display: block;
+  padding: 25px 40px 25px 0;
+  font-size: var(--section-copy-size);
+  font-weight: 700;
+  line-height: var(--section-copy-leading);
+  list-style: none;
+  cursor: pointer;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary:hover,
+.faq-item[open] summary {
+  color: #aa002c;
+}
+
+.faq-item summary::before,
+.faq-item summary::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  width: 14px;
+  height: 1px;
+  background: currentColor;
+}
+
+.faq-item summary::after {
+  transform: rotate(90deg);
+}
+
+.faq-item[open] summary::after {
+  opacity: 0;
+}
+
+.faq-item p {
+  max-width: 65ch;
+  margin: -6px 40px 24px 0;
+  color: #5e5b67;
+  font-size: var(--section-copy-size);
+  line-height: var(--section-copy-leading);
+}
+
+@media (max-width: 767px) {
+  .clinic-faq {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .faq-intro h2 { max-width: none; }
+  .faq-item summary { padding: 18px 32px 18px 0; }
+  .faq-item p { margin: 0 24px 18px 0; }
+}
