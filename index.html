@@ -255,7 +255,12 @@
     </footer>
     <div id="studio" lang="uk"></div>
     <div id="notice" role="status" aria-live="polite" lang="uk"></div>
-    <div id="loading" lang="uk" aria-label="Завантаження тривимірної сцени"><span></span></div>
+    <div id="loading" lang="uk">
+      <div class="scene-progress" role="progressbar" aria-label="Завантаження тривимірної сцени" aria-valuenow="0">
+        <span class="scene-progress-spinner" aria-hidden="true"></span>
+        <span class="scene-progress-value" aria-hidden="true">0%</span>
+      </div>
+    </div>
     <noscript>Для тривимірної анімації увімкніть JavaScript.</noscript>
     <script type="module" src="/src/main.js"></script>
   </body>
